@@ -31,7 +31,7 @@ function Form() {
 
       setLoading(true);
 
-      fetch('http://localhost:5000/predict', {
+      fetch('http://backend:5000/predict', {
          method: 'POST',
          body: form_data
       })
