@@ -1,0 +1,14 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./SimpleFlask  # Path to your Flask backend directory
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./SimpleFlask:/app
+  frontend:
+    build:
+      context: ./preventi-diabete  # Path to your React frontend directory
+    ports:
+      - "3000:5000"  # React is served on port 5000 in the container
