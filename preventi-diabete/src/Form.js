@@ -35,13 +35,13 @@ function Form() {
       setLoading(true);
 
       // Send JSON data to the Flask backend
-      fetch('http://backend:5000/predict', {
+      fetch('http://108.129.87.235:5000/predict', {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
          },
          body: JSON.stringify(data)
-      })
+      })      
       .then(response => response.json())
       .then(data => {
          if (data.prediction) {
