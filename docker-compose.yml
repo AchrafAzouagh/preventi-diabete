@@ -11,4 +11,4 @@ services:
     build:
       context: ./preventi-diabete  # Path to your React frontend directory
     ports:
-      - "3000:5000"  # React is served on port 5000 in the container
+      - "3000:80"  # React is served on port 5000 in the container
