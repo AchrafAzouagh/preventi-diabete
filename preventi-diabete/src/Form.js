@@ -35,7 +35,7 @@ function Form() {
       setLoading(true);
 
       // Send JSON data to the Flask backend
-      fetch('http://ec2-108-129-87-235.eu-west-1.compute.amazonaws.com:5000/predict', {
+      fetch('http://ec2-18-201-180-167.eu-west-1.compute.amazonaws.com:5000/predict', {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
