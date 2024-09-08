@@ -28,13 +28,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        always {
-            // Cleanup after the pipeline run
-            script {
-                sh 'docker-compose down'
-            }
-        }
-    }
 }
