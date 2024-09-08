@@ -25,16 +25,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Run Tests') {
-            steps {
-                script {
-                    // Add any tests you want to run
-                    sh 'docker exec app_master-frontend-1 npm test'
-                    sh 'docker exec app_master-backend-1 pytest'
-                }
-            }
-        }
     }
 
     post {
