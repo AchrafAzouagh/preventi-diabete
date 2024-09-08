@@ -2,20 +2,13 @@ version: '3'
 services:
   backend:
     build:
-      context: ./SimpleFlask
+      context: ./SimpleFlask  # Path to your Flask backend directory
     ports:
       - "5000:5000"
-    networks:
-      - app-network
-
+    volumes:
+      - ./SimpleFlask:/app
   frontend:
     build:
-      context: ./preventi-diabete
+      context: ./preventi-diabete  # Path to your React frontend directory
     ports:
-      - "3000:80"  # Serving React app on port 80
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
+      - "3000:5000"  # React is served on port 5000 in the container
