@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 import pandas as pd
 import pickle
 from flask_cors import CORS
@@ -15,20 +15,26 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        input_1 = float(request.form['1'])
-        input_two = float(request.form['2'])
-        input_three = float(request.form['3'])
-        input_four = float(request.form['4'])
-        input_five = float(request.form['5'])
-        input_six = float(request.form['6'])
-        input_seven = float(request.form['7'])
-        input_eight = float(request.form['8'])
+        # Get JSON data from the request
+        data = request.json
+        input_1 = float(data['1'])
+        input_two = float(data['2'])
+        input_three = float(data['3'])
+        input_four = float(data['4'])
+        input_five = float(data['5'])
+        input_six = float(data['6'])
+        input_seven = float(data['7'])
+        input_eight = float(data['8'])
         
+        # Create a DataFrame from the inputs
         setup_df = pd.DataFrame([pd.Series([input_1, input_two, input_three, input_four, input_five, input_six, input_seven, input_eight])])
+        
+        # Predict using the model
         diabetes_prediction = model.predict_proba(setup_df)
         probability = '{0:.{1}f}'.format(diabetes_prediction[0][1], 2)
         probability_percentage = float(probability) * 100
         
+        # Prepare the response message
         if probability_percentage > 50:
             message = f'You have a {probability_percentage:.2f}% chance of having diabetes based on our model.'
         else:
