@@ -30,8 +30,8 @@ pipeline {
             steps {
                 script {
                     // Add any tests you want to run
-                    sh 'docker exec preventi-diabete-frontend-1 npm test'
-                    sh 'docker exec preventi-diabete-backend-1 pytest'
+                    sh 'docker exec app_master-frontend-1 npm test'
+                    sh 'docker exec app_master-backend-1 pytest'
                 }
             }
         }
