@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    environment {
-        KUBECONFIG = '/var/lib/jenkins/.kube/config'
-    }
     triggers {
         githubPush()  // Automatically triggers on GitHub push
+    }
+    environment {
+        MINIKUBE_RUNNING = sh(script: 'minikube status | grep "host" | grep "Running"', returnStatus: true) == 0
     }
     stages {
         stage('Clone Repository') {
@@ -22,11 +22,13 @@ pipeline {
             }
         }
 
-        stage('Run Containers') {
+        stage('Start Minikube') {
+            when {
+                expression { !env.MINIKUBE_RUNNING }
+            }
             steps {
                 script {
-                    // Run containers
-                    sh 'docker-compose up -d'
+                    sh 'minikube start --driver=docker'
                 }
             }
         }
@@ -34,13 +36,18 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    sh 'kubectl config get-contexts'
-                    // Ensure kubectl is configured for Minikube
-                    sh 'kubectl config use-context minikube'
+                    // Apply configurations
+                    sh 'kubectl apply -f backend-deployment.yaml'
+                    sh 'kubectl apply -f backend-service.yaml'
+                }
+            }
+        }
 
-                    // Apply Kubernetes manifests
-                    sh 'kubectl apply -f ./k8s-manifests/backend-deployment.yaml'
-                    sh 'kubectl apply -f ./k8s-manifests/frontend-deployment.yaml'
+        stage('Port Forwarding') {
+            steps {
+                script {
+                    // Run port forwarding in the background
+                    sh 'kubectl port-forward svc/backend 5000:5000 &'
                 }
             }
         }
