@@ -31,6 +31,11 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
+                    
+                    // Ensure kubectl is configured for Minikube
+                    sh 'kubectl config use-context minikube'
+
+                    // Apply Kubernetes manifests
                     sh 'kubectl apply -f k8s-manifests/backend-deployment.yaml'
                     sh 'kubectl apply -f k8s-manifests/frontend-deployment.yaml'
                 }
