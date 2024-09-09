@@ -3,9 +3,6 @@ pipeline {
     triggers {
         githubPush()  // Automatically triggers on GitHub push
     }
-    environment {
-        MINIKUBE_RUNNING = sh(script: 'minikube status | grep "host" | grep "Running"', returnStatus: true) == 0
-    }
     stages {
         stage('Clone Repository') {
             steps {
@@ -23,12 +20,14 @@ pipeline {
         }
 
         stage('Start Minikube') {
-            when {
-                expression { !env.MINIKUBE_RUNNING }
-            }
             steps {
                 script {
-                    sh 'minikube start --driver=docker'
+                    // Check if Minikube is running
+                    def minikubeStatus = sh(script: 'minikube status | grep "host" | grep "Running"', returnStatus: true)
+                    if (minikubeStatus != 0) {
+                        // Start Minikube if not already running
+                        sh 'minikube start --driver=docker'
+                    }
                 }
             }
         }
