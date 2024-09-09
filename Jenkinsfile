@@ -30,7 +30,7 @@ pipeline {
                     // Optionally wait for pod to be ready
                     sh 'kubectl wait --for=condition=Ready pod/frontend'
                     sh 'kubectl delete service frontend --ignore-not-found'
-                    sh 'kubectl expose pod frontend --type=NodePort --port=5000 --name=frontend'
+                    sh 'kubectl expose pod frontend --type=NodePort --port=3000 --name=frontend'
 
                     // Delete existing pod if it exists
                     sh 'kubectl delete pod backend --ignore-not-found'
@@ -38,7 +38,7 @@ pipeline {
                     // Optionally wait for pod to be ready
                     sh 'kubectl wait --for=condition=Ready pod/backend'
                     sh 'kubectl delete service backend --ignore-not-found'
-                    sh 'kubectl expose pod backend --type=NodePort --port=3000 --name=backend'
+                    sh 'kubectl expose pod backend --type=NodePort --port=5000 --name=backend'
 
                 }
             }
