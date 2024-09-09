@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     // Run port forwarding in the background
-                    sh 'kubectl port-forward svc/backend-service 5000:5000 --address 0.0.0.0'
+                    sh 'kubectl port-forward svc/backend-service 5000:5000 --address 0.0.0.0 &'
                 }
             }
         }
