@@ -23,8 +23,10 @@ pipeline {
             steps {
                 script {
                     // Apply configurations
+                    //sh 'kubectl apply -f ./k8s-manifests/backend-deployment.yaml'
+                    //sh 'kubectl apply -f ./k8s-manifests/backend-service.yaml'
                     sh 'kubectl apply -f ./k8s-manifests/backend-deployment.yaml'
-                    sh 'kubectl apply -f ./k8s-manifests/backend-service.yaml'
+                    sh 'kubectl expose pod backend-service --type=NodePort --port=5000 --name=backend-service'
                 }
             }
         }
