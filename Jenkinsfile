@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        KUBECONFIG = '/var/lib/jenkins/.kube/config'
+    }
     triggers {
         githubPush()  // Automatically triggers on GitHub push
     }
