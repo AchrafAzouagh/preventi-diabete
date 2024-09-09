@@ -3,8 +3,10 @@ kind: Service
 metadata:
   name: backend-service
 spec:
+  type: NodePort
   ports:
   - port: 5000
     targetPort: 5000
+    nodePort: 30001  # Ensure this is within the NodePort range (30000-32767)
   selector:
     app: backend
