@@ -48,9 +48,7 @@ pipeline {
             steps {
                 script {
                     // Run port forwarding in the background
-                    sh 'pkill -f "kubectl port-forward" || true'
-                    sh 'nohup kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 > port-forward.log 2>&1 &'
-                    sh 'nohup kubectl port-forward svc/frontend 3000:3000 --address 0.0.0.0 > port-forward.log 2>&1 &'
+                    sh './start-port-forwarding.sh'
                 }
             }
         }
