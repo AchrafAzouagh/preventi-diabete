@@ -44,25 +44,6 @@ pipeline {
             }
         }
 
-        stage('Prepare Port Forwarding') {
-            steps {
-                script {
-                    // Ensure the script has executable permissions
-                    sh 'chmod +x start-port-forwarding.sh'
-                }
-            }
-        }
-        
-        stage('Port Forwarding') {
-            steps {
-                script {
-                    // Run port forwarding in the background
-                    sh './start-port-forwarding.sh'
-                }
-            }
-        }
-    }
-
     post {
         always {
             echo 'Pipeline finished.'
