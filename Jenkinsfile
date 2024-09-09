@@ -26,7 +26,7 @@ pipeline {
                     //sh 'kubectl apply -f ./k8s-manifests/backend-deployment.yaml'
                     //sh 'kubectl apply -f ./k8s-manifests/backend-service.yaml'
                     sh 'kubectl apply -f ./k8s-manifests/backend-deployment.yaml'
-                    sh 'kubectl expose pod backend-service --type=NodePort --port=5000 --name=backend-service'
+                    sh 'kubectl expose pod backend --type=NodePort --port=5000 --name=backend'
                 }
             }
         }
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     // Run port forwarding in the background
-                    sh 'kubectl port-forward svc/backend-service 5000:5000 --address 0.0.0.0 &'
+                    sh 'kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 &'
                 }
             }
         }
