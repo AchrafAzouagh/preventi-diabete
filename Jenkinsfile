@@ -19,19 +19,6 @@ pipeline {
             }
         }
 
-        stage('Start Minikube') {
-            steps {
-                script {
-                    // Check if Minikube is running
-                    def minikubeStatus = sh(script: 'minikube status | grep "host" | grep "Running"', returnStatus: true)
-                    if (minikubeStatus != 0) {
-                        // Start Minikube if not already running
-                        sh 'minikube start --driver=docker'
-                    }
-                }
-            }
-        }
-
         stage('Deploy to Kubernetes') {
             steps {
                 script {
