@@ -38,7 +38,7 @@ pipeline {
                     // Optionally wait for pod to be ready
                     sh 'kubectl wait --for=condition=Ready pod/backend'
                     sh 'kubectl delete service backend --ignore-not-found'
-                    sh 'kubectl expose pod backend --type=NodePort --port=5000 --name=backend'
+                    sh 'kubectl expose pod backend --type=NodePort --port=3000 --name=backend'
 
                 }
             }
@@ -50,7 +50,7 @@ pipeline {
                     // Run port forwarding in the background
                     sh 'pkill -f "kubectl port-forward"'
                     sh 'kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 &'
-                    sh 'kubectl port-forward svc/frontend 3000:80 --address 0.0.0.0 &'
+                    sh 'kubectl port-forward svc/frontend 80:3000 --address 0.0.0.0 &'
                 }
             }
         }
