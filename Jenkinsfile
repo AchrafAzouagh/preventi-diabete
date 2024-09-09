@@ -23,9 +23,8 @@ pipeline {
             steps {
                 script {
                     // Apply configurations
-                    sh 'pwd'
-                    sh 'kubectl apply -f backend-deployment.yaml'
-                    sh 'kubectl apply -f backend-service.yaml'
+                    sh 'kubectl apply -f ./k8s-manifests/backend-deployment.yaml'
+                    sh 'kubectl apply -f ./k8s-manifests/backend-service.yaml'
                 }
             }
         }
