@@ -6,14 +6,13 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/AchrafAzouagh/preventi-diabete.git' // Replace with your Git repository URL
+                git 'https://github.com/AchrafAzouagh/preventi-diabete.git'
             }
         }
 
         stage('Build Docker Images') {
             steps {
                 script {
-                    // Build frontend and backend images
                     sh 'docker-compose build'
                 }
             }
@@ -22,18 +21,16 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    // Apply configurations
                     sh 'kubectl apply -f ./k8s-manifests/backend-deployment.yaml'
                     sh 'kubectl apply -f ./k8s-manifests/backend-service.yaml'
                 }
             }
         }
 
-        stage('Port Forwarding') {
+        stage('Deploy Ingress') {
             steps {
                 script {
-                    // Run port forwarding in the background
-                    sh 'kubectl port-forward svc/backend-service 5000:5000 --address 0.0.0.0 &'
+                    sh 'kubectl apply -f ./k8s-manifests/backend-ingress.yaml'
                 }
             }
         }
