@@ -7,7 +7,7 @@ spec:
   selector:
     app: backend
   ports:
-    - protocol: TCP
-      port: 5000
-      targetPort: 5000
-      nodePort: 30001
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+    nodePort: 30000  # Optional, specify if you want a fixed port
