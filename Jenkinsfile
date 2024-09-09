@@ -26,10 +26,10 @@ pipeline {
                     //sh 'kubectl apply -f ./k8s-manifests/backend-deployment.yaml'
                     //sh 'kubectl apply -f ./k8s-manifests/backend-service.yaml'
                     // Delete existing pod if it exists
-                    sh 'kubectl delete pod backend --ignore-not-found'
+                    sh 'kubectl delete pod frontend --ignore-not-found'
                     sh 'kubectl run frontend --image=lonewolfsdocker/frontend'
                     // Optionally wait for pod to be ready
-                    sh 'kubectl wait --for=condition=Ready pod/backend'
+                    sh 'kubectl wait --for=condition=Ready pod/frontend'
                     sh 'kubectl expose pod frontend --type=NodePort --port=5000 --name=frontend'
 
                     // Delete existing pod if it exists
