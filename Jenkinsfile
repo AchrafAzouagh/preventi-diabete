@@ -25,7 +25,7 @@ pipeline {
                     // Apply configurations
                     //sh 'kubectl apply -f ./k8s-manifests/backend-deployment.yaml'
                     //sh 'kubectl apply -f ./k8s-manifests/backend-service.yaml'
-                    sh 'kubectl apply -f ./k8s-manifests/backend-deployment.yaml'
+                    sh 'kubectl run backend --image=lonewolfsdocker/backend'
                     sh 'kubectl expose pod backend --type=NodePort --port=5000 --name=backend'
                 }
             }
