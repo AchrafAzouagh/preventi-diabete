@@ -25,8 +25,10 @@ pipeline {
                     // Apply configurations
                     //sh 'kubectl apply -f ./k8s-manifests/backend-deployment.yaml'
                     //sh 'kubectl apply -f ./k8s-manifests/backend-service.yaml'
+                    sh 'kubectl run frontend --image=lonewolfsdocker/frontend'
                     sh 'kubectl run backend --image=lonewolfsdocker/backend'
                     sh 'kubectl expose pod backend --type=NodePort --port=5000 --name=backend'
+                    sh 'kubectl expose pod frontend --type=NodePort --port=5000 --name=frontend'
                 }
             }
         }
@@ -36,6 +38,7 @@ pipeline {
                 script {
                     // Run port forwarding in the background
                     sh 'kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 &'
+                    sh 'kubectl port-forward svc/frontend 80:3000 --address 0.0.0.0 &'
                 }
             }
         }
