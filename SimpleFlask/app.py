@@ -20,7 +20,7 @@ smoking_history_encoder = pickle.load(open("diabetes/smoking_history_encoder.pkl
 heart_disease_scaler = pickle.load(open("heartdisease/heart_disease_scaler.pkl", "rb"))
 
 # Load label encoders for heart disease model
-sex_encoder = pickle.load(open("heartdisease/sex_encoder.pkl", "rb"))
+sex_encoder = pickle.load(open("heartdisease/se.pkl", "rb"))
 chest_pain_encoder = pickle.load(open("heartdisease/chest_pain_encoder.pkl", "rb"))
 exercise_angina_encoder = pickle.load(open("heartdisease/exercise_angina_encoder.pkl", "rb"))
 slope_of_st_encoder = pickle.load(open("heartdisease/slope_of_st_encoder.pkl", "rb"))
