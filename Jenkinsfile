@@ -44,15 +44,6 @@ pipeline {
             }
         }
 
-                stage('Wait for Services') {
-            steps {
-                script {
-                    // Wait for services to be available
-                    sleep(time: 30, unit: 'SECONDS')
-                }
-            }
-        }
-
         stage('Stop Old Port Forwarding') {
             steps {
                 script {
