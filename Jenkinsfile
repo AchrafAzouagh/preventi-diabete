@@ -48,7 +48,7 @@ pipeline {
             steps {
                 script {
                     // Start the port-forwarding service
-                    sh 'systemctl start kubenetes-port-forwarding.service'
+                    sh 'sudo systemctl start kubenetes-port-forwarding.service'
                 }
             }
         }
