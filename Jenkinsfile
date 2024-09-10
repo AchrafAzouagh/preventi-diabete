@@ -43,6 +43,36 @@ pipeline {
                 }
             }
         }
+
+                stage('Wait for Services') {
+            steps {
+                script {
+                    // Wait for services to be available
+                    sleep(time: 30, unit: 'SECONDS')
+                }
+            }
+        }
+
+        stage('Stop Old Port Forwarding') {
+            steps {
+                script {
+                    // Kill old kubectl port-forwarding processes
+                    sh 'pkill -f "kubectl port-forward" || true'
+                }
+            }
+        }
+
+        stage('Start Port Forwarding') {
+            steps {
+                script {
+                    // Run port forwarding in the background
+                    sh '''
+                    nohup kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0
+                    nohup kubectl port-forward svc/frontend 3000:3000 --address 0.0.0.0
+                    '''
+                }
+            }
+        }
     }
 
     post {
