@@ -43,6 +43,15 @@ pipeline {
                 }
             }
         }
+
+        stage('Start Port Forwarding') {
+            steps {
+                script {
+                    // Start the port-forwarding service
+                    sh 'systemctl start kubenetes-port-forwarding.service'
+                }
+            }
+        }
     }
 
     post {
