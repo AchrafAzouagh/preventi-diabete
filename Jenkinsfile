@@ -62,20 +62,22 @@ pipeline {
             }
         }
 
+        stage('Start Port Forwarding') {
+            steps {
+                script {
+                    // Run port forwarding in the background
+                    sh '''
+                    export JENKINS_NODE_COOKIE=dontKillMe
+                    kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 > backend-port-forward.log 2>&1 &
+                    kubectl port-forward svc/frontend 3000:3000 --address 0.0.0.0 > frontend-port-forward.log 2>&1 &
+                    '''
+                }
+            }
+        }
     }
 
     post {
         always {
-            script {
-                // Clean up old port forwarding commands
-                sh 'pkill -f "kubectl port-forward" || true'
-
-                // Start port forwarding
-                sh '''
-                    kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 > backend-port-forward.log 2>&1 &
-                    kubectl port-forward svc/frontend 3000:3000 --address 0.0.0.0 > frontend-port-forward.log 2>&1 &
-                '''
-            }
             echo 'Pipeline finished.'
         }
         success {
