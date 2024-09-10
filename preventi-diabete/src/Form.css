@@ -1,3 +1,4 @@
+/* Général styling du formulaire */
 form {
    background-color: #fff;
    border-radius: 10px;
@@ -9,17 +10,21 @@ form {
    max-width: 100%;
 }
 
+/* Titre du formulaire */
 form > h4 {
    font-size: 30px;
    margin: 0;
 }
 
+/* Description du formulaire */
 form > p {
    font-size: 18px;
    margin: 10px 0 20px 0;
 }
 
-form input {
+/* Styling des champs de formulaire */
+form input,
+form select {
    border: 1px solid #767676;
    border-radius: 5px;
    box-shadow: inset 0 0 0 1000px #fff;
@@ -29,23 +34,34 @@ form input {
    outline: none;
    padding: 0 10px;
    transition: border-color .2s ease-in-out;
+   width: 100%; /* Assure que les inputs et selects occupent toute la largeur */
+   height: 40px; /* Assure une hauteur uniforme pour les champs */
 }
 
+/* Suppression des boutons de défilement pour les inputs de type number */
 form input::-webkit-outer-spin-button,
 form input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Firefox */
 form input[type=number] {
   -moz-appearance: textfield;
 }
 
-form input:focus {
+/* Styling spécifique pour les selects */
+form select {
+   background-color: #fff;
+   cursor: pointer;
+}
+
+/* État de focus pour les inputs et selects */
+form input:focus,
+form select:focus {
    border-color: #3456FF;
 }
 
+/* Styling du bouton */
 form button {
    background-color: #3456FF;
    border: 1px solid #3456FF;
@@ -60,6 +76,7 @@ form button {
    width: 100%;
 }
 
+/* État de survol du bouton */
 form button:hover {
    background-color: #2440ca;
 }
@@ -70,6 +87,7 @@ form button:disabled {
    cursor: default;
 }
 
+/* Styling pour le texte de nettoyage et de résultat */
 form span {
    color: gray;
    cursor: pointer;
