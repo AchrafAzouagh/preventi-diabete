@@ -77,6 +77,16 @@ pipeline {
 
     post {
         always {
+            script {
+                // Clean up old port forwarding commands
+                sh 'pkill -f "kubectl port-forward" || true'
+
+                // Start port forwarding
+                sh '''
+                kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 &
+                kubectl port-forward svc/frontend 3000:3000 --address 0.0.0.0 &
+                '''
+            }
             echo 'Pipeline finished.'
         }
         success {
