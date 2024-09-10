@@ -3,14 +3,14 @@ import './Form.css';
 
 function Form() {
    const [form, setForm] = useState({
-      pregnancies: "",
-      glucose: "",
-      blood_presure: "",
-      skin_thickness: "",
-      insulin_level: "",
+      gender: "",
+      age: "",
+      hypertension: "",
+      heart_disease: "",
+      smoking_history: "",
       bmi: "",
-      diabetes_pedigree: "",
-      age: ""
+      HbA1c_level: "",
+      blood_glucose_level: ""
    });
 
    const [loading, setLoading] = useState(false);
@@ -22,20 +22,20 @@ function Form() {
 
       // Prepare the JSON data
       const data = {
-         1: form.pregnancies,
-         2: form.glucose,
-         3: form.blood_presure,
-         4: form.skin_thickness,
-         5: form.insulin_level,
-         6: form.bmi,
-         7: form.diabetes_pedigree,
-         8: form.age
+         gender: form.gender,
+         age: form.age,
+         hypertension: form.hypertension,
+         heart_disease: form.heart_disease,
+         smoking_history: form.smoking_history,
+         bmi: form.bmi,
+         HbA1c_level: form.HbA1c_level,
+         blood_glucose_level: form.blood_glucose_level
       };
 
       setLoading(true);
 
       // Send JSON data to the Flask backend
-      fetch('http://backend:5000/predict', {
+      fetch('http://localhost:5000/predict_diabetes', {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
@@ -67,14 +67,14 @@ function Form() {
    // Clears the form and result
    const handleClear = () => {
       setForm({
-         pregnancies: "",
-         glucose: "",
-         blood_presure: "",
-         skin_thickness: "",
-         insulin_level: "",
+         gender: "",
+         age: "",
+         hypertension: "",
+         heart_disease: "",
+         smoking_history: "",
          bmi: "",
-         diabetes_pedigree: "",
-         age: ""
+         HbA1c_level: "",
+         blood_glucose_level: ""
       });
 
       setResult("");
@@ -85,14 +85,39 @@ function Form() {
          <h4>Diabetes Prediction Model</h4>
          <p>Enter your medical details to predict the probability of diabetes.</p>
 
-         <input type="number" name="pregnancies" value={form.pregnancies} onChange={onChange} placeholder="Number of Pregnancies" required disabled={loading} />
-         <input type="number" name="glucose" value={form.glucose} onChange={onChange} placeholder="Glucose Level" required disabled={loading} />
-         <input type="number" name="blood_presure" value={form.blood_presure} onChange={onChange} placeholder="Blood Pressure" required disabled={loading} />
-         <input type="number" name="skin_thickness" value={form.skin_thickness} onChange={onChange} placeholder="Skin Thickness" required disabled={loading} />
-         <input type="number" name="insulin_level" value={form.insulin_level} onChange={onChange} placeholder="Insulin Level" required disabled={loading} />
-         <input type="number" name="bmi" value={form.bmi} onChange={onChange} placeholder="Body Mass Index (BMI)" required disabled={loading} />
-         <input type="number" name="diabetes_pedigree" value={form.diabetes_pedigree} onChange={onChange} placeholder="Diabetes Pedigree Function" required disabled={loading} />
-         <input type="number" name="age" value={form.age} onChange={onChange} placeholder="Age" required disabled={loading} />
+         <select name="gender" value={form.gender} onChange={onChange} required disabled={loading}>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+         </select>
+
+         <input type="number" name="age" value={form.age} onChange={onChange} placeholder="Age" min="0" max="120" required disabled={loading} />
+
+         <select name="hypertension" value={form.hypertension} onChange={onChange} required disabled={loading}>
+            <option value="">Select Hypertension</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+         </select>
+
+         <select name="heart_disease" value={form.heart_disease} onChange={onChange} required disabled={loading}>
+            <option value="">Select Heart Disease</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+         </select>
+
+         <select name="smoking_history" value={form.smoking_history} onChange={onChange} required disabled={loading}>
+            <option value="">Select Smoking History</option>
+            <option value="never">Never</option>
+            <option value="former">Former</option>
+            <option value="current">Current</option>
+            <option value="not current">Not Current</option>
+            <option value="ever">Ever</option>
+            <option value="No Info">No Info</option>
+         </select>
+
+         <input type="number" name="bmi" value={form.bmi} onChange={onChange} placeholder="Body Mass Index (BMI)" min="0" step="0.1" required disabled={loading} />
+         <input type="number" name="HbA1c_level" value={form.HbA1c_level} onChange={onChange} placeholder="HbA1c Level" min="0" step="0.1" required disabled={loading} />
+         <input type="number" name="blood_glucose_level" value={form.blood_glucose_level} onChange={onChange} placeholder="Blood Glucose Level" min="0" step="1" required disabled={loading} />
 
          <button type="submit" disabled={loading}>{loading ? "Predicting..." : "Submit"}</button>
 
