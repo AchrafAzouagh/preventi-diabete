@@ -50,7 +50,7 @@ pipeline {
                     // Start the port-forwarding service
                     sh 'sudo systemctl start kubernetes-port-forwarding.service'
                     // Check the status to ensure it’s running
-                    sh 'sudo systemctl status kubernetes-port-forwarding.service'
+                    // sh 'sudo systemctl status kubernetes-port-forwarding.service'
                     sh 'curl http://ec2-18-201-180-167.eu-west-1.compute.amazonaws.com:3000/'
                 }
             }
