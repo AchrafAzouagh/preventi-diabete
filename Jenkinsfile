@@ -62,17 +62,6 @@ pipeline {
             }
         }
 
-        stage('Start Port Forwarding') {
-            steps {
-                script {
-                    // Run port forwarding in the background
-                    sh '''
-                    kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 > backend-port-forward.log 2>&1 &
-                    kubectl port-forward svc/frontend 3000:3000 --address 0.0.0.0 > frontend-port-forward.log 2>&1 &
-                    '''
-                }
-            }
-        }
     }
 
     post {
@@ -83,8 +72,8 @@ pipeline {
 
                 // Start port forwarding
                 sh '''
-                kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 &
-                kubectl port-forward svc/frontend 3000:3000 --address 0.0.0.0 &
+                    kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 > backend-port-forward.log 2>&1 &
+                    kubectl port-forward svc/frontend 3000:3000 --address 0.0.0.0 > frontend-port-forward.log 2>&1 &
                 '''
             }
             echo 'Pipeline finished.'
