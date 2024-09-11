@@ -3,6 +3,7 @@ services:
   backend:
     build:
       context: ./SimpleFlask  # Path to your Flask backend directory
+    image: backend:latest
     ports:
       - "5000:5000"
     volumes:
@@ -10,6 +11,7 @@ services:
   frontend:
     build:
       context: ./preventi-diabete  # Path to your React frontend directory
+    image: frontend:latest
     ports:
       - "3000:3000"  # React is served on port 80 in the container
     depends_on:
