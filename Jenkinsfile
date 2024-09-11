@@ -10,20 +10,23 @@ pipeline {
             }
         }
 
-        stage('Use Minikube Docker Environment') {
+        stage('Build Docker Images') {
             steps {
                 script {
-                    // Set up environment to use Minikube's Docker daemon
-                    sh 'eval $(minikube docker-env)'
+                    // Build frontend and backend images
+                    sh 'docker-compose build'
                 }
             }
         }
 
-        stage('Build Docker Images') {
+        stage('Push Docker Images to Docker Hub') {
             steps {
                 script {
-                    // Build frontend and backend images using Minikube's Docker daemon
-                    sh 'docker-compose build'
+                    // Push frontend and backend images to Docker Hub
+                    sh 'docker tag frontend lonewolfsdocker/frontend:latest'
+                    sh 'docker tag backend lonewolfsdocker/backend:latest'
+                    sh 'docker push lonewolfsdocker/frontend:latest'
+                    sh 'docker push lonewolfsdocker/backend:latest'
                 }
             }
         }
@@ -31,16 +34,19 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    // Apply Kubernetes configurations using local Docker images
+                    // Apply configurations
+                    
+                    // Delete existing pod if it exists
                     sh 'kubectl delete pod frontend --ignore-not-found'
-                    sh 'kubectl run frontend --image=frontend:latest'
+                    sh 'kubectl run frontend --image=lonewolfsdocker/frontend'
                     // Optionally wait for pod to be ready
                     sh 'kubectl wait --for=condition=Ready pod/frontend'
                     sh 'kubectl delete service frontend --ignore-not-found'
                     sh 'kubectl expose pod frontend --type=NodePort --port=3000 --name=frontend'
 
+                    // Delete existing pod if it exists
                     sh 'kubectl delete pod backend --ignore-not-found'
-                    sh 'kubectl run backend --image=backend:latest'
+                    sh 'kubectl run backend --image=lonewolfsdocker/backend'
                     // Optionally wait for pod to be ready
                     sh 'kubectl wait --for=condition=Ready pod/backend'
                     sh 'kubectl delete service backend --ignore-not-found'
