@@ -10,10 +10,19 @@ pipeline {
             }
         }
 
+        stage('Use Minikube Docker Environment') {
+            steps {
+                script {
+                    // Set up environment to use Minikube's Docker daemon
+                    sh 'eval $(minikube docker-env)'
+                }
+            }
+        }
+
         stage('Build Docker Images') {
             steps {
                 script {
-                    // Build frontend and backend images
+                    // Build frontend and backend images using Minikube's Docker daemon
                     sh 'docker-compose build'
                 }
             }
@@ -22,24 +31,20 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    // Apply configurations
-
-                    // Delete existing pod if it exists
+                    // Apply Kubernetes configurations using local Docker images
                     sh 'kubectl delete pod frontend --ignore-not-found'
-                    sh 'kubectl run frontend --image=lonewolfsdocker/frontend'
+                    sh 'kubectl run frontend --image=frontend:latest'
                     // Optionally wait for pod to be ready
                     sh 'kubectl wait --for=condition=Ready pod/frontend'
                     sh 'kubectl delete service frontend --ignore-not-found'
                     sh 'kubectl expose pod frontend --type=NodePort --port=3000 --name=frontend'
 
-                    // Delete existing pod if it exists
                     sh 'kubectl delete pod backend --ignore-not-found'
-                    sh 'kubectl run backend --image=lonewolfsdocker/backend'
+                    sh 'kubectl run backend --image=backend:latest'
                     // Optionally wait for pod to be ready
                     sh 'kubectl wait --for=condition=Ready pod/backend'
                     sh 'kubectl delete service backend --ignore-not-found'
                     sh 'kubectl expose pod backend --type=NodePort --port=5000 --name=backend'
-
                 }
             }
         }
