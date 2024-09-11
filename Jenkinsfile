@@ -26,10 +26,6 @@ pipeline {
                         // Login to Docker Hub
                         sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
 
-                        // Tag images
-                        sh 'docker tag frontend lonewolfsdocker/frontend:latest'
-                        sh 'docker tag backend lonewolfsdocker/backend:latest'
-
                         // Push images
                         sh 'docker push lonewolfsdocker/frontend:latest'
                         sh 'docker push lonewolfsdocker/backend:latest'
