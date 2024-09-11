@@ -118,7 +118,7 @@ function HeartDiseaseForm() {
          <input type="number" name="bp" value={form.bp} onChange={onChange} placeholder="Blood Pressure" min="0" step="0.1" required disabled={loading} />
          <input type="number" name="cholesterol" value={form.cholesterol} onChange={onChange} placeholder="Cholesterol" min="0" step="0.1" required disabled={loading} />
          <select name="fbs" value={form.fbs} onChange={onChange} required disabled={loading}>
-            <option value="">Fasting Blood Sugar > 120 mg/dl?</option>
+         <option value="">Fasting Blood Sugar &gt; 120 mg/dl?</option>
             <option value="0">No</option>
             <option value="1">Yes</option>
          </select>
