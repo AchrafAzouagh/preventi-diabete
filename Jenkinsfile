@@ -21,12 +21,19 @@ pipeline {
 
         stage('Push Docker Images to Docker Hub') {
             steps {
-                script {
-                    // Push frontend and backend images to Docker Hub
-                    sh 'docker tag frontend lonewolfsdocker/frontend:latest'
-                    sh 'docker tag backend lonewolfsdocker/backend:latest'
-                    sh 'docker push lonewolfsdocker/frontend:latest'
-                    sh 'docker push lonewolfsdocker/backend:latest'
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    script {
+                        // Login to Docker Hub
+                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+
+                        // Tag images
+                        sh 'docker tag frontend lonewolfsdocker/frontend:latest'
+                        sh 'docker tag backend lonewolfsdocker/backend:latest'
+
+                        // Push images
+                        sh 'docker push lonewolfsdocker/frontend:latest'
+                        sh 'docker push lonewolfsdocker/backend:latest'
+                    }
                 }
             }
         }
