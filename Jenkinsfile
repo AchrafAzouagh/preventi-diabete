@@ -19,11 +19,26 @@ pipeline {
             }
         }
 
+        stage('Push Docker Images to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    script {
+                        // Login to Docker Hub
+                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+
+                        // Push images
+                        sh 'docker push lonewolfsdocker/frontend:latest'
+                        sh 'docker push lonewolfsdocker/backend:latest'
+                    }
+                }
+            }
+        }
+
         stage('Deploy to Kubernetes') {
             steps {
                 script {
                     // Apply configurations
-
+                    
                     // Delete existing pod if it exists
                     sh 'kubectl delete pod frontend --ignore-not-found'
                     sh 'kubectl run frontend --image=lonewolfsdocker/frontend'
@@ -39,7 +54,6 @@ pipeline {
                     sh 'kubectl wait --for=condition=Ready pod/backend'
                     sh 'kubectl delete service backend --ignore-not-found'
                     sh 'kubectl expose pod backend --type=NodePort --port=5000 --name=backend'
-
                 }
             }
         }
