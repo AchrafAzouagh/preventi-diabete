@@ -18,7 +18,7 @@ function ImageUpload() {
     formData.append('image', image);
 
     try {
-      const response = await fetch('http://localhost:5000/extract_from_image', {
+      const response = await fetch('http://ec2-18-201-180-167.eu-west-1.compute.amazonaws.com:5000/extract_from_image', {
         method: 'POST',
         body: formData,
       });
