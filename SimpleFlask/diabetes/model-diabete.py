@@ -1,9 +1,10 @@
 import pandas as pd
 import pickle
 from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, accuracy_score
+
 
 # Load the dataset
 data = pd.read_csv("diabetes_dataset.csv")
@@ -32,17 +33,18 @@ X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
 # Initialize and train KNN model
-knn = KNeighborsClassifier(n_neighbors=5)  # Specify number of neighbors
-knn.fit(X_train, y_train)
+model = RandomForestClassifier(random_state=42)  
+model.fit(X_train, y_train)
 
 # Evaluate the model
-y_pred = knn.predict(X_test)
-print("Model performance on test set:")
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Model Accuracy: {accuracy * 100:.2f}%")
 print(classification_report(y_test, y_pred))
 
 # Save the model and preprocessor
-with open('knn_model.pkl', 'wb') as model_file:
-    pickle.dump(knn, model_file)
+with open('diabetes_model.pkl', 'wb') as model_file:
+    pickle.dump(model, model_file)
 
 with open('scaler.pkl', 'wb') as scaler_file:
     pickle.dump(scaler, scaler_file)
