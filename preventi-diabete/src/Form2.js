@@ -69,7 +69,7 @@ function HeartDiseaseForm() {
       setLoading(true);
 
       // Send JSON data to the Flask backend for heart disease prediction
-      fetch('http://localhost:5000/predict_heart_disease', {
+      fetch('http://ec2-18-201-180-167.eu-west-1.compute.amazonaws.com:5000/predict_heart_disease', {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
