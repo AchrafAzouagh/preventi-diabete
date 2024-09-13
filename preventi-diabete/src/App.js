@@ -1,32 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Form from './Form'; // Diabetes Form
-import HeartDiseaseForm from './Form2'; // Heart Disease Form
-import ImageUpload from './ImageUpload';
+import { useState } from 'react';
+import Form from './Form';
+import HeartDiseaseForm from './Form2';
 import './App.css';
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        <nav className="navbar">
-          <ul className="navbar-list">
-            <li className="navbar-item"><Link to="/upload" className="navbar-link">Image Upload</Link></li>
-            <li className="navbar-item"><Link to="/form" className="navbar-link">Diabetes Form</Link></li>
-            <li className="navbar-item"><Link to="/form2" className="navbar-link">Heart Disease Form</Link></li>
-          </ul>
-        </nav>
-        <main className="App-main">
-          <Routes>
-            <Route path="/" element={<ImageUpload />} />
-            <Route path="/upload" element={<ImageUpload />} />
-            <Route path="/form" element={<Form />} />
-            <Route path="/form2" element={<HeartDiseaseForm />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
-  );
+    const [showHeartDiseaseForm, setShowHeartDiseaseForm] = useState(false);
+
+    const handleSwitchForm = () => {
+        setShowHeartDiseaseForm(!showHeartDiseaseForm);
+    };
+
+    return (
+        <div className="app">
+          <main className="App-main">
+            <button onClick={handleSwitchForm}>
+                {showHeartDiseaseForm ? 'Switch to Diabetes Form' : 'Switch to Heart Disease Form'}
+            </button>
+            <div className={`form-container ${showHeartDiseaseForm ? 'slide-left' : 'slide-right'}`}>
+                {showHeartDiseaseForm ? <HeartDiseaseForm /> : <Form />}
+            </div>
+          </main>
+        </div>
+    );
 }
 
 export default App;

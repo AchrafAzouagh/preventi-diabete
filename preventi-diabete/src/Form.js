@@ -1,11 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom'; // Import to access location state
+import { useState } from 'react';
 import './Form.css';
 
 function Form() {
-   const location = useLocation(); // Hook to access location state
-   const extractedData = location.state?.extractedData || {}; // Optional: Get extracted data or set an empty object if not provided
-
    const [form, setForm] = useState({
       gender: "",
       age: "",
@@ -19,22 +15,6 @@ function Form() {
 
    const [loading, setLoading] = useState(false);
    const [result, setResult] = useState("");
-
-   // Populate form fields with extracted data when component mounts (if data is available)
-   useEffect(() => {
-      if (Object.keys(extractedData).length > 0) {
-         setForm({
-            gender: extractedData.gender || "",
-            age: extractedData.age || "",
-            hypertension: extractedData.hypertension || "",
-            heart_disease: extractedData.heart_disease || "",
-            smoking_history: extractedData.smoking_history || "",
-            bmi: extractedData.bmi || "",
-            HbA1c_level: extractedData.HbA1c_level || "",
-            blood_glucose_level: extractedData.blood_glucose_level || ""
-         });
-      }
-   }, [extractedData]); // Only populate when extractedData changes or is passed
 
    // Handles form submission and sends the data to the Flask backend as JSON
    const handleSubmit = (event) => {
@@ -55,7 +35,7 @@ function Form() {
       setLoading(true);
 
       // Send JSON data to the Flask backend
-      fetch('http://localhost:5000/predict_diabetes', {
+      fetch('http://ec2-18-201-180-167.eu-west-1.compute.amazonaws.com:5000/predict_diabetes', {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
