@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 import numpy as np
 from flask_cors import CORS # type: ignore
-from PIL import Image
+import Image
 import pytesseract
 import os
 import re

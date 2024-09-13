@@ -7,7 +7,6 @@ WORKDIR /app
 # Copy the requirements file and install dependencies
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-RUN apt-get update && apt install -y tesseract-ocr
 
 # Copy the rest of the application code
 COPY . .
