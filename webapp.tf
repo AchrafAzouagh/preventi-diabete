@@ -9,7 +9,7 @@ resource "aws_instance" "webapp" {
   subnet_id     = "subnet-035e74a88a53b93ce"
 
   vpc_security_group_ids = [
-    "sg-0326a04f419cb3782",
+    aws_security_group.webapp_sg.id,
   ]
 
   tags = {
