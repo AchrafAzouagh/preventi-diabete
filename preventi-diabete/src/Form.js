@@ -55,7 +55,7 @@ function Form() {
       setLoading(true);
 
       // Send JSON data to the Flask backend
-      fetch('http://ec2-18-201-180-167.eu-west-1.compute.amazonaws.com:5000/predict_diabetes', {
+      fetch('http://ec2-18-201-180-167.eu-west-1.compute.amazonaws.com/predict_diabetes', {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
@@ -102,49 +102,49 @@ function Form() {
 
    return (
       <form onSubmit={handleSubmit}>
-         <h4>Diabetes Prediction Model</h4>
-         <p>Enter your medical details to predict the probability of diabetes.</p>
-
+         <h4>Modèle de Prédiction du Diabète</h4>
+         <p>Entrez vos détails médicaux pour prédire la probabilité de diabète.</p>
+   
          <select name="gender" value={form.gender} onChange={onChange} required disabled={loading}>
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+            <option value="">Sélectionner le Genre</option>
+            <option value="Male">Homme</option>
+            <option value="Female">Femme</option>
          </select>
-
-         <input type="number" name="age" value={form.age} onChange={onChange} placeholder="Age" min="0" max="120" required disabled={loading} />
-
+   
+         <input type="number" name="age" value={form.age} onChange={onChange} placeholder="Âge" min="0" max="120" required disabled={loading} />
+   
          <select name="hypertension" value={form.hypertension} onChange={onChange} required disabled={loading}>
-            <option value="">Select Hypertension</option>
-            <option value="0">No</option>
-            <option value="1">Yes</option>
+            <option value="">Sélectionner Hypertension</option>
+            <option value="0">Non</option>
+            <option value="1">Oui</option>
          </select>
-
+   
          <select name="heart_disease" value={form.heart_disease} onChange={onChange} required disabled={loading}>
-            <option value="">Select Heart Disease</option>
-            <option value="0">No</option>
-            <option value="1">Yes</option>
+            <option value="">Sélectionner Maladie Cardiaque</option>
+            <option value="0">Non</option>
+            <option value="1">Oui</option>
          </select>
-
+   
          <select name="smoking_history" value={form.smoking_history} onChange={onChange} required disabled={loading}>
-            <option value="">Select Smoking History</option>
-            <option value="never">Never</option>
-            <option value="former">Former</option>
-            <option value="current">Current</option>
-            <option value="not current">Not Current</option>
-            <option value="ever">Ever</option>
-            <option value="No Info">No Info</option>
+            <option value="">Sélectionner l'Historique de Tabagisme</option>
+            <option value="never">Jamais</option>
+            <option value="former">Ancien</option>
+            <option value="current">Actuel</option>
+            <option value="not current">Non Actuel</option>
+            <option value="ever">Un jour</option>
+            <option value="No Info">Pas d'Information</option>
          </select>
-
-         <input type="number" name="bmi" value={form.bmi} onChange={onChange} placeholder="Body Mass Index (BMI)" min="0" step="0.1" required disabled={loading} />
-         <input type="number" name="HbA1c_level" value={form.HbA1c_level} onChange={onChange} placeholder="HbA1c Level" min="0" step="0.1" required disabled={loading} />
-         <input type="number" name="blood_glucose_level" value={form.blood_glucose_level} onChange={onChange} placeholder="Blood Glucose Level" min="0" step="1" required disabled={loading} />
-
-         <button type="submit" disabled={loading}>{loading ? "Predicting..." : "Submit"}</button>
-
-         {result && <span onClick={handleClear}>Clear Prediction</span>}
+   
+         <input type="number" name="bmi" value={form.bmi} onChange={onChange} placeholder="Indice de Masse Corporelle (IMC)" min="0" step="0.1" required disabled={loading} />
+         <input type="number" name="HbA1c_level" value={form.HbA1c_level} onChange={onChange} placeholder="Niveau HbA1c" min="0" step="0.1" required disabled={loading} />
+         <input type="number" name="blood_glucose_level" value={form.blood_glucose_level} onChange={onChange} placeholder="Niveau de Glucose Sanguin" min="0" step="1" required disabled={loading} />
+   
+         <button type="submit" disabled={loading}>{loading ? "Prédiction en cours..." : "Soumettre"}</button>
+   
+         {result && <span onClick={handleClear}>Effacer la Prédiction</span>}
          {result && <div className="result">{result}</div>}
       </form>
-   );
+   );   
 }
 
 export default Form;
