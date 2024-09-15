@@ -11,9 +11,9 @@ function App() {
       <div className="App">
         <nav className="navbar">
           <ul className="navbar-list">
-            <li className="navbar-item"><Link to="/upload" className="navbar-link">Image Upload</Link></li>
-            <li className="navbar-item"><Link to="/form" className="navbar-link">Diabetes Form</Link></li>
-            <li className="navbar-item"><Link to="/form2" className="navbar-link">Heart Disease Form</Link></li>
+            <li className="navbar-item"><Link to="/upload" className="navbar-link">Chargement d'Image</Link></li>
+            <li className="navbar-item"><Link to="/form" className="navbar-link">Formulaire Diabète</Link></li>
+            <li className="navbar-item"><Link to="/form2" className="navbar-link">Formulaire Maladie Cardiaque</Link></li>
           </ul>
         </nav>
         <main className="App-main">

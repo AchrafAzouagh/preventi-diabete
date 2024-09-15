@@ -144,9 +144,9 @@ def predict_diabetes():
 
         # Prepare the response message
         if probability_percentage > 50:
-            message = f'You have a {probability_percentage:.2f}% chance of having diabetes based on our model.'
+            message = f'Vous avez une chance de {probability_percentage:.2f}% d\'avoir le diabète selon notre modèle. Il est recommandé de consulter un médecin pour un avis médical.'
         else:
-            message = f'You have a {probability_percentage:.2f}% chance of having diabetes. This is considered low but consult a doctor for medical advice.'
+            message = f'Vous avez une chance de {probability_percentage:.2f}% d\'avoir le diabète. Cela est considéré comme faible.'
 
         return jsonify({
             'prediction': message
@@ -189,9 +189,9 @@ def predict_heart_disease():
         
         # Prepare the response message
         if probability_percentage > 50:
-            message = f'You have a {probability_percentage:.2f}% chance of having a heart disease based on our model.'
+            message = f'Vous avez une probabilité de {probability_percentage:.2f}% de souffrir d\'une maladie cardiaque selon notre modèle. Il est recommandé de consulter un médecin pour un avis médical.'
         else:
-            message = f'You have a {probability_percentage:.2f}% chance of having a heart disease. This is considered low but consult a doctor for medical advice.'
+            message = f'Vous avez une probabilité de {probability_percentage:.2f}% de souffrir d\'une maladie cardiaque. Cela est considéré comme faible.'
 
         return jsonify({
             'prediction': message

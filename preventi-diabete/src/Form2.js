@@ -121,70 +121,70 @@ function HeartDiseaseForm() {
 
    return (
       <form onSubmit={handleSubmit}>
-         <h4>Heart Disease Prediction Model</h4>
-         <p>Enter your medical details to predict the probability of heart disease.</p>
-
-         <input type="number" name="age" value={form.age} onChange={onChange} placeholder="Age" min="0" max="120" required disabled={loading} />
-
-         {/* Ensure the sex matches "Male" or "Female" */}
+         <h4>Modèle de Prédiction des Maladies Cardiaques</h4>
+         <p>Entrez vos détails médicaux pour prédire la probabilité de maladie cardiaque.</p>
+   
+         <input type="number" name="age" value={form.age} onChange={onChange} placeholder="Âge" min="0" max="120" required disabled={loading} />
+   
+         {/* Assurez-vous que le sexe correspond à "Homme" ou "Femme" */}
          <select name="sex" value={form.sex} onChange={onChange} required disabled={loading}>
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+            <option value="">Sélectionner le Genre</option>
+            <option value="Male">Homme</option>
+            <option value="Female">Femme</option>
          </select>
-
-         {/* Ensure chest_pain_type matches the dropdown */}
+   
+         {/* Assurez-vous que le type de douleur thoracique correspond au menu déroulant */}
          <select name="chest_pain_type" value={form.chest_pain_type} onChange={onChange} required disabled={loading}>
-            <option value="">Select Chest Pain Type</option>
-            <option value="0">Typical Angina</option>
-            <option value="1">Atypical Angina</option>
-            <option value="2">Non-Anginal Pain</option>
-            <option value="3">Asymptomatic</option>
+            <option value="">Sélectionner le Type de Douleur Thoracique</option>
+            <option value="0">Angine Typique</option>
+            <option value="1">Angine Atypique</option>
+            <option value="2">Douleur Non-Anginale</option>
+            <option value="3">Asymptomatique</option>
          </select>
-
-         <input type="number" name="bp" value={form.bp} onChange={onChange} placeholder="Blood Pressure" min="0" step="0.1" required disabled={loading} />
-         <input type="number" name="cholesterol" value={form.cholesterol} onChange={onChange} placeholder="Cholesterol" min="0" step="0.1" required disabled={loading} />
-
-         {/* Ensure fbs matches "0" or "1" */}
+   
+         <input type="number" name="bp" value={form.bp} onChange={onChange} placeholder="Pression Artérielle" min="0" step="0.1" required disabled={loading} />
+         <input type="number" name="cholesterol" value={form.cholesterol} onChange={onChange} placeholder="Cholestérol" min="0" step="0.1" required disabled={loading} />
+   
+         {/* Assurez-vous que fbs correspond à "0" ou "1" */}
          <select name="fbs" value={form.fbs} onChange={onChange} required disabled={loading}>
-            <option value="">Fasting Blood Sugar &gt; 120 mg/dl?</option>
-            <option value="0">No</option>
-            <option value="1">Yes</option>
+            <option value="">Sucre Sanguin à Jeun &gt; 120 mg/dl?</option>
+            <option value="0">Non</option>
+            <option value="1">Oui</option>
          </select>
-
-         <input type="number" name="ekg_results" value={form.ekg_results} onChange={onChange} placeholder="EKG Results" min="0" step="0.1" required disabled={loading} />
-         <input type="number" name="max_hr" value={form.max_hr} onChange={onChange} placeholder="Maximum Heart Rate" min="0" required disabled={loading} />
-
-         {/* Ensure exercise_angina matches "0" or "1" */}
+   
+         <input type="number" name="ekg_results" value={form.ekg_results} onChange={onChange} placeholder="Résultats EKG" min="0" step="0.1" required disabled={loading} />
+         <input type="number" name="max_hr" value={form.max_hr} onChange={onChange} placeholder="Fréquence Cardiaque Maximale" min="0" required disabled={loading} />
+   
+         {/* Assurez-vous que exercise_angina correspond à "0" ou "1" */}
          <select name="exercise_angina" value={form.exercise_angina} onChange={onChange} required disabled={loading}>
-            <option value="">Exercise-Induced Angina?</option>
-            <option value="0">No</option>
-            <option value="1">Yes</option>
+            <option value="">Angine Induite par l'Exercice?</option>
+            <option value="0">Non</option>
+            <option value="1">Oui</option>
          </select>
-
-         <input type="number" name="st_depression" value={form.st_depression} onChange={onChange} placeholder="ST Depression" min="0" step="0.1" required disabled={loading} />
-
+   
+         <input type="number" name="st_depression" value={form.st_depression} onChange={onChange} placeholder="Dépression ST" min="0" step="0.1" required disabled={loading} />
+   
          <select name="slope_of_st" value={form.slope_of_st} onChange={onChange} required disabled={loading}>
-            <option value="">Slope of ST Segment</option>
-            <option value="0">Upsloping</option>
-            <option value="1">Flat</option>
-            <option value="2">Downsloping</option>
+            <option value="">Pente du Segment ST</option>
+            <option value="0">Montante</option>
+            <option value="1">Plate</option>
+            <option value="2">Descendante</option>
          </select>
-
-         <input type="number" name="num_vessels" value={form.num_vessels} onChange={onChange} placeholder="Number of Major Vessels" min="0" max="4" required disabled={loading} />
+   
+         <input type="number" name="num_vessels" value={form.num_vessels} onChange={onChange} placeholder="Nombre de Vaisseaux Principaux" min="0" max="4" required disabled={loading} />
          <select name="thallium" value={form.thallium} onChange={onChange} required disabled={loading}>
-            <option value="">Select Thallium Stress Test Result</option>
+            <option value="">Sélectionner le Résultat du Test de Stress au Thallium</option>
             <option value="0">Normal</option>
-            <option value="1">Fixed Defect</option>
-            <option value="2">Reversible Defect</option>
+            <option value="1">Défaut Fixe</option>
+            <option value="2">Défaut Réversible</option>
          </select>
-
-         <button type="submit" disabled={loading}>{loading ? "Predicting..." : "Submit"}</button>
-
-         {result && <span onClick={handleClear}>Clear Prediction</span>}
+   
+         <button type="submit" disabled={loading}>{loading ? "Prédiction en cours..." : "Soumettre"}</button>
+   
+         {result && <span onClick={handleClear}>Effacer la Prédiction</span>}
          {result && <div className="result">{result}</div>}
       </form>
-   );
+   );   
 }
 
 export default HeartDiseaseForm;
